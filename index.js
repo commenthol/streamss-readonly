@@ -5,7 +5,6 @@
 
 'use strict';
 
-var _ = require('underscore');
 var Readable = require('streamss-shim').Readable;
 
 /**
@@ -18,7 +17,12 @@ var Readable = require('streamss-shim').Readable;
  * @param {Stream}
  */
 module.exports = function (stream) {
-	var opts = _.pick(stream._readableState || {}, 'highWaterMark encoding objectMode'.split(' '));
+	var rs = stream._readableState || {};
+	var opts = {};
+
+	['highWaterMark','encoding','objectMode'].forEach(function(p){
+		opts[p] = rs[p];
+	});
 
 	var readonly = new Readable(opts);
 	var waiting = false;

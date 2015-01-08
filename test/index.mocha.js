@@ -12,8 +12,6 @@ var ReadArray = require('streamss').ReadArray;
 var WriteArray = require('streamss').WriteArray;
 var readonly = require('../index');
 
-//~ return console.log(Through.prototype._write.toString())
-
 /* globals describe, it */
 
 describe('#readonly', function(){

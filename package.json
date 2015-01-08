@@ -1,7 +1,7 @@
 {
   "name": "streamss-readonly",
   "description": "make streams read-only",
-  "version": "0.0.1",
+  "version": "0.0.2-0",
   "main": "index.js",
   "engines": {
     "node": ">=0.8.0"
@@ -11,8 +11,7 @@
     "test": "test"
   },
   "dependencies": {
-    "streamss-shim": "0.0.1",
-    "underscore": "~1.7.0"
+    "streamss-shim": "~0.0.1"
   },
   "devDependencies": {
     "mocha": "latest",
