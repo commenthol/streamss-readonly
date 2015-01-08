@@ -1,0 +1,43 @@
+{
+  "name": "streamss-readonly",
+  "description": "make streams read-only",
+  "version": "0.0.1",
+  "main": "index.js",
+  "engines": {
+    "node": ">=0.8.0"
+  },
+  "directories": {
+    "doc": "doc",
+    "test": "test"
+  },
+  "dependencies": {
+    "streamss-shim": "0.0.1",
+    "underscore": "~1.7.0"
+  },
+  "devDependencies": {
+    "mocha": "latest",
+    "streamss": "~0.2.2"
+  },
+  "scripts": {
+    "test": "mocha test/*.mocha.js",
+    "cover": "istanbul cover _mocha --report lcov --report text -- -R dot --check-leaks test/*.mocha.js",
+    "lint": "jshint --show-non-errors *.js */*.js",
+    "doc": "jsdoc -d doc -c jsdoc.json index.js lib/*.js",
+    "clean": "rm -rf doc coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "github.com/commenthol/streamss-readonly"
+  },
+  "keywords": [
+    "stream2",
+    "read-only"
+  ],
+  "author": "commenthol <commenthol@gmail.com>",
+  "maintainers": "commenthol <commenthol@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/commenthol/streamss-readonly/issues"
+  },
+  "homepage": "https://github.com/commenthol/streamss-readonly"
+}
