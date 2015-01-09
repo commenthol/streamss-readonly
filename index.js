@@ -2,6 +2,8 @@
  * @module streamss-readonly
  * @copyright 2015 commenthol
  * @license MIT
+ *
+ * Code inspired by [read-only-stream](https://github.com/substack/read-only-stream) project. (MIT-licensed)
  */
 
 'use strict';

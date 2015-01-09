@@ -2,10 +2,14 @@
 
 > Make streams2 read-only
 
-![NPM version](https://badge.fury.io/js/streamss-readonly.svg)
+[![NPM version](https://badge.fury.io/js/streamss-readonly.svg)](https://www.npmjs.com/package/streamss-readonly/)
 [![Build Status](https://secure.travis-ci.org/commenthol/streamss-readonly.svg?branch=master)](https://travis-ci.org/commenthol/streamss-readonly)
 
 Wraps any kind of stream to behave like a [Readable][] Stream. This is a pure Stream2 implementation which respects `highWaterMark` and saturation of piped streams.
+
+Works with node v0.8.x and greater.
+For node v0.8.x the user-land copy [readable-stream][] is used.
+For all other node versions greater v0.8.x the built-in `stream` module is used.
 
 Credits go to [read-only-stream][].
 
@@ -66,6 +70,7 @@ See [LICENSE][] for more info.
 [LICENSE]: ./LICENSE
 [read-only-stream]: https://github.com/substack/read-only-stream
 [Readable]: http://nodejs.org/api/stream.html#stream_class_stream_readable
+[readable-stream]: https://github.com/isaacs/readable-stream
 
 
 
