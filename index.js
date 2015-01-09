@@ -1,4 +1,5 @@
 /**
+ * @module streamss-readonly
  * @copyright 2015 commenthol
  * @license MIT
  */
@@ -8,37 +9,38 @@
 var Readable = require('streamss-shim').Readable;
 
 /**
- * @credits
- * @see https://github.com/substack/read-only-stream
+ * Converts any stream into a read-only stream
+ * @param {Readable|Transform|Duplex} stream - A stream which shall behave as a Readable only stream.
+ * @throws {Error} "not a readable stream" - if stream does not implement a Readable component this error is thrown
+ * @return {Readable} - A read-only readable stream
  */
-
-/**
- * converts any stream into a read-only stream
- * @param {Stream}
- */
-module.exports = function (stream) {
+function readonly(stream) {
 	var rs = stream._readableState || {};
 	var opts = {};
+
+	if (typeof stream.read !== 'function') {
+		throw new Error('not a readable stream');
+	}
 
 	['highWaterMark','encoding','objectMode'].forEach(function(p){
 		opts[p] = rs[p];
 	});
 
-	var readonly = new Readable(opts);
+	var readOnly = new Readable(opts);
 	var waiting = false;
 
 	stream.on('readable', function () {
 		if (waiting) {
 			waiting = false;
-			readonly._read();
+			readOnly._read();
 		}
 	});
 
-	readonly._read = function(size) {
+	readOnly._read = function(size) {
 		var buf;
 
 		while ((buf = stream.read(size)) !== null) {
-			if (! readonly.push(buf) ) {
+			if (! readOnly.push(buf) ) {
 				return;
 			}
 		}
@@ -46,13 +48,15 @@ module.exports = function (stream) {
 	};
 
 	stream.once('end', function () {
-		readonly.push(null);
+		readOnly.push(null);
 	});
 	stream.on('close', function () {
-		readonly.emit('close');
+		readOnly.emit('close');
 	});
 	stream.on('error', function (err) {
-		readonly.emit('error', err);
+		readOnly.emit('error', err);
 	});
-	return readonly;
-};
+	return readOnly;
+}
+
+module.exports = readonly;

@@ -30,33 +30,25 @@ describe('#readonly', function(){
 	});
 
 	it('allows write', function(done){
-		var str = 'write here';
 		var stream = new Through();
 		var ro = readonly(stream);
 
-		stream.write(str);
+		stream.write(abc);
 
 		ro.pipe(new Through(function(data){
-			assert.equal(data, str);
+			assert.equal(data, abc);
 			done();
 		}));
 
 		stream.end();
 	});
 
-	it('Writable stream but throw on pipe', function(done){
+	it('Writable stream throws', function(){
 		var stream = new WriteArray();
-		var ro = readonly(stream);
-
-		ro.on('close', function() {
-			done();
-		});
-
+		var ro;
 		assert.throws(function(){
-			ro.pipe(process.stdout);
+			ro = readonly(stream);
 		});
-
-		stream.emit('close');
 	});
 
 	it('passes on stream', function(done){

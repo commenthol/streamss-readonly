@@ -1,7 +1,7 @@
 {
   "name": "streamss-readonly",
-  "description": "make streams read-only",
-  "version": "0.0.2-0",
+  "description": "Make streams2 read-only",
+  "version": "0.1.0",
   "main": "index.js",
   "engines": {
     "node": ">=0.8.0"
@@ -21,7 +21,7 @@
     "test": "mocha test/*.mocha.js",
     "cover": "istanbul cover _mocha --report lcov --report text -- -R dot --check-leaks test/*.mocha.js",
     "lint": "jshint --show-non-errors *.js */*.js",
-    "doc": "jsdoc -d doc -c jsdoc.json index.js lib/*.js",
+    "doc": "jsdoc -d doc -c jsdoc.json index.js",
     "clean": "rm -rf doc coverage"
   },
   "repository": {
