@@ -1,11 +1,11 @@
-var through = require('streamss').Through;
-var readonly = require('../');
+var through = require('streamss').Through
+var readonly = require('../')
 
-var th = through();
-var ro = readonly(th);
+var th = through()
+var ro = readonly(th)
 
-ro.pipe(process.stdout);
-th.write('hello world\n');
-th.end();
+ro.pipe(process.stdout)
+th.write('hello world\n')
+th.end()
 
-//ro.end('this throws');
+// ro.end('this throws');

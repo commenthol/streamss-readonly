@@ -11,16 +11,16 @@
     "test": "test"
   },
   "dependencies": {
-    "streamss-shim": "~0.0.1"
+    "streamss-shim": "~0.0.2"
   },
   "devDependencies": {
     "mocha": "latest",
-    "streamss": "~0.2.2"
+    "streamss": "~0.2.5"
   },
   "scripts": {
     "test": "mocha test/*.mocha.js",
     "cover": "istanbul cover _mocha --report lcov --report text -- -R dot --check-leaks test/*.mocha.js",
-    "lint": "jshint --show-non-errors *.js */*.js",
+    "lint": "eslint '**/*.js'",
     "doc": "jsdoc -d doc -c jsdoc.json index.js",
     "clean": "rm -rf doc coverage"
   },
