@@ -20,7 +20,7 @@
   "scripts": {
     "test": "mocha test/*.mocha.js",
     "cover": "istanbul cover _mocha --report lcov --report text -- -R dot --check-leaks test/*.mocha.js",
-    "lint": "eslint '**/*.js'",
+    "lint": "eslint '*.js' '**/*.js'",
     "doc": "jsdoc -d doc -c jsdoc.json index.js",
     "clean": "rm -rf doc coverage"
   },
@@ -38,5 +38,12 @@
   "bugs": {
     "url": "https://github.com/commenthol/streamss-readonly/issues"
   },
-  "homepage": "https://github.com/commenthol/streamss-readonly"
+  "homepage": "https://github.com/commenthol/streamss-readonly",
+  "eslintConfig": {
+    "extends": "standard",
+    "plugins": [
+      "standard"
+    ],
+    "rules": {}
+  }  
 }
