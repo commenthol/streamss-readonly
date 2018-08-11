@@ -35,7 +35,7 @@ describe('#readonly', function () {
     stream.write(abc)
 
     ro.pipe(new Through(function (data) {
-      assert.equal(data, abc)
+      assert.strictEqual(data.toString(), abc)
       done()
     }))
 
@@ -53,11 +53,11 @@ describe('#readonly', function () {
     var stream = new ReadBuffer(abc)
     var ro = readonly(stream)
     var exp = []
-    exp.push(new Buffer(abc))
+    exp.push(Buffer.from(abc))
 
     ro.pipe(new WriteArray({ highWaterMark: 3, decodeStrings: false }, function (err, arr) {
       assert.strictEqual(err, null)
-      assert.deepEqual(arr, exp)
+      assert.deepStrictEqual(arr, exp)
       done()
     }))
   })
@@ -69,7 +69,7 @@ describe('#readonly', function () {
 
     ro.pipe(new WriteArray({ decodeStrings: false }, function (err, arr) {
       assert.strictEqual(err, null)
-      assert.deepEqual(arr, exp)
+      assert.deepStrictEqual(arr, exp)
       done()
     }))
   })
@@ -81,7 +81,7 @@ describe('#readonly', function () {
 
     ro.pipe(WriteArray.obj(function (err, arr) {
       assert.strictEqual(err, null)
-      assert.deepEqual(arr, exp)
+      assert.deepStrictEqual(arr, exp)
       done()
     }))
   })
@@ -103,7 +103,7 @@ describe('#readonly', function () {
 
     ro.on('error', function (err) {
       assert.ok(err !== null)
-      assert.equal(err.message, 'Bang!')
+      assert.strictEqual(err.message, 'Bang!')
       done()
     })
 

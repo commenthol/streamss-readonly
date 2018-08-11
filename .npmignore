@@ -1,10 +1,11 @@
-/node_modules
-/coverage
-/examples
+node_modules/
+coverage/
 /test
 /doc
 jsdoc.json
 Makefile
-.*
-*.log
+.**
 *.tgz
+*.log
+.nyc_output/
+examples/

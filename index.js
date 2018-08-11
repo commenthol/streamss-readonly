@@ -8,7 +8,7 @@
 
 'use strict'
 
-var Readable = require('streamss-shim').Readable
+var Readable = require('stream').Readable
 
 /**
  * Converts any stream into a read-only stream
