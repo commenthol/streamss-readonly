@@ -65,7 +65,7 @@ describe('#readonly', function () {
   it('passes on stream and respects highWaterMark', function (done) {
     var stream = new ReadBuffer({ highWaterMark: 3, encoding: 'utf8' }, abc)
     var ro = readonly(stream)
-    var exp = [ 'abc', 'def', 'ghi' ]
+    var exp = ['abc', 'def', 'ghi']
 
     ro.pipe(new WriteArray({ decodeStrings: false }, function (err, arr) {
       assert.strictEqual(err, null)
@@ -75,7 +75,7 @@ describe('#readonly', function () {
   })
 
   it('passes on object stream', function (done) {
-    var exp = [ 'abc', 'def', 'ghi' ]
+    var exp = ['abc', 'def', 'ghi']
     var stream = ReadArray.obj(exp.slice())
     var ro = readonly(stream)
 
