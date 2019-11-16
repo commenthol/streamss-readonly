@@ -1,6 +1,6 @@
 {
   "name": "streamss-readonly",
-  "version": "1.0.2",
+  "version": "2.0.0-0",
   "description": "Make streams2 read-only",
   "keywords": [
     "read-only",
