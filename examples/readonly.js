@@ -1,8 +1,8 @@
-var through = require('streamss').Through
-var readonly = require('../')
+const { Through } = require('streamss')
+const readonly = require('../')
 
-var th = through()
-var ro = readonly(th)
+const th = Through()
+const ro = readonly(th)
 
 ro.pipe(process.stdout)
 th.write('hello world\n')

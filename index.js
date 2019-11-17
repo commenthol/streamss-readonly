@@ -8,8 +8,7 @@
 
 'use strict'
 
-var Readable = require('stream').Readable
-
+const { Readable } = require('stream')
 /**
  * Converts any stream into a read-only stream
  * @param {Readable|Transform|Duplex} stream - A stream which shall behave as a Readable only stream.
@@ -17,21 +16,21 @@ var Readable = require('stream').Readable
  * @return {Readable} - A read-only readable stream
  */
 function readonly (stream) {
-  var rs = stream._readableState || {}
-  var opts = {}
+  const rs = stream._readableState || {}
+  const opts = {}
 
   if (typeof stream.read !== 'function') {
     throw new Error('not a readable stream')
   }
 
-  ['highWaterMark', 'encoding', 'objectMode'].forEach(function (p) {
+  ;['highWaterMark', 'encoding', 'objectMode'].forEach(p => {
     opts[p] = rs[p]
   })
 
-  var readOnly = new Readable(opts)
-  var waiting = false
+  const readOnly = new Readable(opts)
+  let waiting = false
 
-  stream.on('readable', function () {
+  stream.on('readable', () => {
     if (waiting) {
       waiting = false
       readOnly._read()
@@ -39,7 +38,7 @@ function readonly (stream) {
   })
 
   readOnly._read = function (size) {
-    var buf
+    let buf
 
     while ((buf = stream.read(size)) !== null) {
       if (!readOnly.push(buf)) {
@@ -49,13 +48,13 @@ function readonly (stream) {
     waiting = true
   }
 
-  stream.once('end', function () {
+  stream.once('end', () => {
     readOnly.push(null)
   })
-  stream.on('close', function () {
+  stream.once('close', () => {
     readOnly.emit('close')
   })
-  stream.on('error', function (err) {
+  stream.on('error', (err) => {
     readOnly.emit('error', err)
   })
   return readOnly

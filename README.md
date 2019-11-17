@@ -16,16 +16,16 @@ Credits go to [read-only-stream][].
 ### Example
 
 ``` javascript
-var through = require('streamss').Through;
-var readonly = require('streamss-readonly');
+let through = require('streamss').Through
+let readonly = require('streamss-readonly')
 
-var th = through();
-var ro = readonly(th);
+let th = through()
+let ro = readonly(th)
 
-ro.pipe(process.stdout);
-th.write('hello world');
+ro.pipe(process.stdout)
+th.write('hello world')
 
-//ro.write('this throws');
+// ro.write('this throws')
 ```
 
 ## Methods
@@ -63,7 +63,7 @@ with the source of its origin and licence.
 
 ## License
 
-Copyright (c) 2015 commenthol (MIT License)
+Copyright (c) 2015- commenthol (MIT License)
 
 See [LICENSE][] for more info.
 
@@ -71,6 +71,3 @@ See [LICENSE][] for more info.
 [read-only-stream]: https://github.com/substack/read-only-stream
 [Readable]: http://nodejs.org/api/stream.html#stream_class_stream_readable
 [readable-stream]: https://github.com/isaacs/readable-stream
-
-
-

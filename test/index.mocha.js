@@ -5,21 +5,16 @@
 
 'use strict'
 
-var assert = require('assert')
-var Through = require('streamss').Through
-var ReadBuffer = require('streamss').ReadBuffer
-var ReadArray = require('streamss').ReadArray
-var WriteArray = require('streamss').WriteArray
-var readonly = require('../index')
-
-/* globals describe, it */
+const assert = require('assert')
+const { through, ReadBuffer, ReadArray, WriteArray } = require('streamss')
+const readonly = require('../index')
 
 describe('#readonly', function () {
-  var abc = 'abcdefghi'
+  const abc = 'abcdefghi'
 
   it('does not pass write', function () {
-    var stream = new Through()
-    var ro = readonly(stream)
+    const stream = through()
+    const ro = readonly(stream)
 
     assert.throws(function () {
       ro.write('no write here')
@@ -29,12 +24,12 @@ describe('#readonly', function () {
   })
 
   it('allows write', function (done) {
-    var stream = new Through()
-    var ro = readonly(stream)
+    const stream = through()
+    const ro = readonly(stream)
 
     stream.write(abc)
 
-    ro.pipe(new Through(function (data) {
+    ro.pipe(through(function (data) {
       assert.strictEqual(data.toString(), abc)
       done()
     }))
@@ -43,16 +38,16 @@ describe('#readonly', function () {
   })
 
   it('Writable stream throws', function () {
-    var stream = new WriteArray()
+    const stream = new WriteArray()
     assert.throws(function () {
       readonly(stream)
     })
   })
 
   it('passes on stream', function (done) {
-    var stream = new ReadBuffer(abc)
-    var ro = readonly(stream)
-    var exp = []
+    const stream = new ReadBuffer(abc)
+    const ro = readonly(stream)
+    const exp = []
     exp.push(Buffer.from(abc))
 
     ro.pipe(new WriteArray({ highWaterMark: 3, decodeStrings: false }, function (err, arr) {
@@ -63,9 +58,9 @@ describe('#readonly', function () {
   })
 
   it('passes on stream and respects highWaterMark', function (done) {
-    var stream = new ReadBuffer({ highWaterMark: 3, encoding: 'utf8' }, abc)
-    var ro = readonly(stream)
-    var exp = ['abc', 'def', 'ghi']
+    const stream = new ReadBuffer({ highWaterMark: 3, encoding: 'utf8' }, abc)
+    const ro = readonly(stream)
+    const exp = ['abc', 'def', 'ghi']
 
     ro.pipe(new WriteArray({ decodeStrings: false }, function (err, arr) {
       assert.strictEqual(err, null)
@@ -75,11 +70,11 @@ describe('#readonly', function () {
   })
 
   it('passes on object stream', function (done) {
-    var exp = ['abc', 'def', 'ghi']
-    var stream = ReadArray.obj(exp.slice())
-    var ro = readonly(stream)
+    const exp = ['abc', 'def', 'ghi']
+    const stream = ReadArray.readArrayObj(exp.slice())
+    const ro = readonly(stream)
 
-    ro.pipe(WriteArray.obj(function (err, arr) {
+    ro.pipe(WriteArray.writeArrayObj(function (err, arr) {
       assert.strictEqual(err, null)
       assert.deepStrictEqual(arr, exp)
       done()
@@ -87,8 +82,8 @@ describe('#readonly', function () {
   })
 
   it('emits close', function (done) {
-    var stream = new Through()
-    var ro = readonly(stream)
+    const stream = through()
+    const ro = readonly(stream)
 
     ro.on('close', function () {
       done()
@@ -98,8 +93,8 @@ describe('#readonly', function () {
   })
 
   it('emits error', function (done) {
-    var stream = new Through()
-    var ro = readonly(stream)
+    const stream = through()
+    const ro = readonly(stream)
 
     ro.on('error', function (err) {
       assert.ok(err !== null)
